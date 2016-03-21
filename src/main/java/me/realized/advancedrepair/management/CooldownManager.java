@@ -4,6 +4,7 @@ import me.realized.advancedrepair.Core;
 import me.realized.advancedrepair.configuration.Config;
 import me.realized.advancedrepair.utilities.DateUtil;
 import me.realized.advancedrepair.utilities.RepairType;
+import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
@@ -90,8 +91,12 @@ public class CooldownManager {
     }
 
     public boolean has(Player player, RepairType type) {
+        if (player.hasPermission("arepair.bypass")) {
+            return false;
+        }
+
         UUID uuid = player.getUniqueId();
-        Cooldown cooldown = config.getByName(instance.getPermission().getPrimaryGroup(player));
+        Cooldown cooldown = config.getByName(getGroup(player));
 
         if (cooldown == null) {
             return false;
@@ -135,12 +140,7 @@ public class CooldownManager {
 
     public String remaining(Player player, RepairType type) {
         UUID uuid = player.getUniqueId();
-        String group = instance.getPermission().getPrimaryGroup(player);
-
-        if (group == null || config.getByName(group) == null) {
-            return null;
-        }
-
+        String group = getGroup(player);
         Cooldown cooldown = config.getByName(group);
         long now = new GregorianCalendar().getTimeInMillis();
         long last;
@@ -173,12 +173,7 @@ public class CooldownManager {
             return;
         }
 
-        String group = instance.getPermission().getPrimaryGroup(player);
-
-        if (group == null || config.getByName(group) == null) {
-            return;
-        }
-
+        String group = getGroup(player);
         long now = new GregorianCalendar().getTimeInMillis();
 
         switch (type) {
@@ -203,5 +198,20 @@ public class CooldownManager {
     public void reset(UUID uuid) {
         hand.remove(uuid);
         all.remove(uuid);
+    }
+
+    private String getGroup(Player player) {
+        String group = instance.getPermission().getPrimaryGroup(player);
+
+        if (group == null || config.getByName(group) == null) {
+            for (String groups : instance.getPermission().getPlayerGroups(player)) {
+                if (config.getByName(groups) != null) {
+                    group = groups;
+                    break;
+                }
+            }
+        }
+
+        return group;
     }
 }
