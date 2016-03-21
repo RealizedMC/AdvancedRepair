@@ -1,0 +1,33 @@
+name: AdvancedRepair
+main: me.realized.advancedrepair.Core
+version: 1.0.1
+author: Realized
+description: Advanced repairing system for pvp servers.
+depend: [Vault]
+commands:
+   repair:
+     description: Repair held item or inventory.
+     aliases: [fix]
+   ar:
+     description: Administrative commands for AdvancedRepair.
+     aliases: [advancedrepair, arepair]
+
+permissions:
+  arepair.*:
+    description: Grants access to all Advancedrepair permissions.
+    children:
+      arepair.bypass: true
+      arepair.admin: true
+      arepair.repair.hand: true
+      arepair.repair.all: true
+      arepair.repair.armor: true
+      arepair.repair.renamed: true
+      arepair.repair.enchanted: true
+  arepair.repair.*:
+    description: Grants access to /repair all and /repair hand.
+    children:
+      arepair.repair.hand: true
+      arepair.repair.all: true
+      arepair.repair.armor: true
+      arepair.repair.renamed: true
+      arepair.repair.enchanted: true

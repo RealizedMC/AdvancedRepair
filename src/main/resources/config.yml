@@ -1,0 +1,69 @@
+# Allow repair of enchanted weapons and armor.
+# If you set this to false, you can still allow it for certain players using the following permission: arepair.enchanted
+repair-enchanted: true
+
+# Allow repair of renamed weapons and armor.
+# If you set this to false, you can still allow it for certain players using the following permission: arepair.renamed
+repair-renamed: true
+
+# Set cooldown for hand and all per group.
+# cooldown is in seconds.
+# Set to 0 for no cooldown.
+# Please Note: Group name is case sensitive.
+# repair-hand: /repair, /repair hand
+# repair-all: /repair all
+# Permission for bypass: arepair.bypass
+group-cooldowns:
+  Donator:
+    repair-hand: 60
+    repair-all: 600
+  VIP:
+    repair-hand: 30
+    repair-all:  600
+
+# Edit the messages displayed in-game here! Read the comments above the message for more information.
+messages:
+
+  # Displayed when the sub argument of the repair command is invalid.
+  # No available placeholders
+  usage: '&cUsage: /repair [hand:all]'
+
+  # Displayed when the held item cannot be repaired on /repair hand.
+  # No available placeholders
+  invalid-item: '&cThis item cannot be repaired.'
+
+  # Displayed when the item is already on full durability.
+  # No available placeholders
+  already-maxed: '&cThis item is already on max durability.'
+
+  # Displayed when player is not holding anything on /repair hand.
+  # No available placeholders
+  not-holding: '&cPlease hold an item to repair.'
+
+  # Displayed when there are on items that needs to be repaired in player's inventory on /repair all.
+  # No available placeholders
+  no-needed: '&cThere were no items that needed repairing.'
+
+  # Displayed when player is not authorized for permission required action.
+  # Available placeholder(s):
+  # %permission% - Gets the permission missing.
+  not-authorized: '&cYou are missing the following permission: %permission%'
+
+  # Displayed when player is still on the cooldown for repair command.
+  # Available placeholder(s):
+  # %remaining% - Gets the remaining cooldown duration in a nice date format.
+  on-cooldown: '&cYou must wait %remaining% to use this command again.'
+
+  # Displayed when the command /repair or /repair hand has successfully ran.
+  # Available placeholder(s):
+  # %held% - Gets the name of the held item.
+  on-repair-hand: '&6Successfully repaired the &citem holding&6.'
+
+  # Displayed when the command /repair all has successfully ran.
+  # Available placeholder(s):
+  # %repaired_items% - Gets the list of items repaired by the command.
+  on-repair-all: '&6Successfully repaired your: &c%repaired_items%&6.'
+
+
+
+
